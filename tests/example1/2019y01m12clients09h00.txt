@@ -1,0 +1,10 @@
+Day:
+2019-01-12
+Time:
+09:00
+Company:
+iCageDoree
+Clients:
+Guillaume Dutroux, london, 2019-03-12, 13:30, 55, 4*, plumbing, 4h00
+Jose Quesada, madrid, 2019-03-12, 10:00, 30, 2*, refrigerators, 5h15
+Martin Wyne, london, 2019-04-30, 19:45, 105, 3*, wifi, 0h30
