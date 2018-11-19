@@ -1,7 +1,7 @@
-# 2018-2019 Fundamentos de Programação (LTI)
-# Grupo N
-# número nome
-# número nome
+# 2018-2019 Fundamentos de Programação
+# Grupo 18
+# 44605 Cláudia Garcia Belém
+# 31955 Inês de Carvalho Fernandes Martins da Silva
 
 
 def readExpertsFile(fileName):
@@ -37,5 +37,3 @@ def readHeader(fileName):
     scope = fileIn.readline().strip().replace("\n", "")
     
     return (day, time, company, scope)
-
-
