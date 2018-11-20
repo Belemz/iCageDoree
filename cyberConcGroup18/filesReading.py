@@ -4,6 +4,32 @@
 # 31955 Inês de Carvalho Fernandes Martins da Silva
 
 
+def readHeader(fileName):
+    # ... <to complete>
+
+    fileIn = open(fileName, 'r')
+
+    fileIn.readline()
+    day = fileIn.readline().strip().replace("\n", "")
+
+    fileIn.readline()
+    time = fileIn.readline().strip().replace("\n", "")
+
+    fileIn.readline()
+    company = fileIn.readline().strip().replace("\n", "")
+
+
+    scope = fileIn.readline().strip().replace("\n", "")
+
+    fileIn.close()
+
+    return (day, time, company, scope)     # returns a tuple
+
+    ## teste:  print("o dia é ", day)
+    # print("o tempo é ", time)
+    # print("a companhia é ", company)
+    # print("o scope é ", scope)
+
 def readExpertsFile(fileName):
     """
     Converts a given file listing experts into a collection
@@ -19,21 +45,42 @@ def readExpertsFile(fileName):
 
     # ... <to complete>
 
+    return (outputList)
+
+
+def readClientsFile(fileName):
+    """"
+    Converts a given file listing clients into a collection
+        Requires: a fileName is str, the name of a .txt file listing experts, following the format specified
+        in the project.
+        Ensures: list whose first element is the name of the client,
+                  second element is the
+
+        ## COMPLETEEEE! """
+
+    outputList = []
+
+    outputList.append(readHeader(fileName))
+
+    print(outputList)
+
+    inFile = open(fileName, 'r')
+
+    count = 0
+    clientList = []
+
+    for line in inFile.readlines():
+
+        if count >= 7:
+            line.replace("\n", "")
+            clientList = line.split(",")
+            print(clientList)
+            outputList.append(clientList)
+
+        count = count + 1
+
+    inFile.close()
+
     return outputList
 
-
-
-def readHeader(fileName):
-    
-    # ... <to complete>
-
-    fileIn.readline()
-    day = fileIn.readline().strip().replace("\n", "")
-    fileIn.readline()
-    time = fileIn.readline().strip().replace("\n", "")
-    fileIn.readline()
-    company = fileIn.readline().strip().replace("\n", "")
-    fileIn.readline()
-    scope = fileIn.readline().strip().replace("\n", "")
-    
-    return (day, time, company, scope)
+# test : print(readClientsFile("/Users/ClaudiaBelem/PycharmProjects/iCageDoree/tests/example1/2019y01m12clients09h00.txt"))
