@@ -44,11 +44,6 @@ def readExpertsFile(fileName):
         seventh is starting time of next available slot,
         eighth is the accumulated amount (in €) for the completed work
     """
-    outputList = []
-    
-    outputList.append(readHeader(fileName))
-    print(outputList)
-    
     fileIn = open(fileName, 'r')
 
     expertsList = []
@@ -59,7 +54,7 @@ def readExpertsFile(fileName):
             expertsList.append (line.split (","))
         counter += 1
 
-    inFile.close()
+    fileIn.close()
 
     return (expertsList)
 
