@@ -67,14 +67,16 @@ def readClientsFile(fileName):
     inFile = open(fileName, 'r')
 
     count = 0
-    clientList = []
+    clientsList = []
 
     for line in inFile.readlines():
 
+        processed_line = line.replace ( "\n" , "" )
+
         if count >= 7:
-            line.replace("\n", "")
-            clientList = line.split(",")
-            print(clientList)
+
+            clientList = processed_line.split(",")
+
             outputList.append(clientList)
 
         count = count + 1
@@ -83,4 +85,5 @@ def readClientsFile(fileName):
 
     return outputList
 
-# test : print(readClientsFile("/Users/ClaudiaBelem/PycharmProjects/iCageDoree/tests/example1/2019y01m12clients09h00.txt"))
+# test :
+print(readClientsFile("/Users/ClaudiaBelem/PycharmProjects/iCageDoree/tests/example1/2019y01m12clients09h00.txt"))
