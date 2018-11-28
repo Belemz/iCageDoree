@@ -3,7 +3,7 @@
 # 44605 Cláudia Garcia Belém
 # 31955 Inês de Carvalho Fernandes Martins da Silva
 
-
+import datetime
 
 def createHeader(fileName, day, time, company, scope):
     """
@@ -15,6 +15,7 @@ def createHeader(fileName, day, time, company, scope):
     Returns: creates a header with each parameter in different lines and preceded (in the line before) with the
      type of parameter
     """
+
 
 
     fileName.write("Day:\n")
@@ -47,8 +48,11 @@ def writeSchedule():
 
     createHeader(newFile, day,time,company,scope)   # Header is created!
 
-    newFile.write("\n ")                            #
-    newFile.write ( "\nA Carlota também!" )
+
+
+
+    newFile.write(date, ",", time, ",", client_name, ",", expert_name)                            #
+    newFile.write ()
 
     newFile.close()
 

@@ -3,6 +3,7 @@
 # 44605 Cláudia Garcia Belém
 # 31955 Inês de Carvalho Fernandes Martins da Silva
 
+import constants
 
 def readHeader(fileName):
     # ... <to complete>
@@ -44,6 +45,13 @@ def readExpertsFile(fileName):
         seventh is starting time of next available slot,
         eighth is the accumulated amount (in €) for the completed work
     """
+
+    outputList = []
+
+    inFile = open ( fileName , 'r' )
+
+    outputList.append(readHeader(fileName))
+
     fileIn = open(fileName, 'r')
 
     expertsList = []
@@ -53,6 +61,8 @@ def readExpertsFile(fileName):
             line.replace ("\n", "")
             expertsList.append (line.split (","))
         counter += 1
+
+
 
     fileIn.close()
 
@@ -70,32 +80,31 @@ def readClientsFile(fileName):
 
         ## COMPLETEEEE! """
 
+
+
     outputList = []
+
+    inFile = open ( fileName , 'r' )
 
     outputList.append(readHeader(fileName))
 
-    print(outputList)
+#    print(outputList)
 
     inFile = open(fileName, 'r')
 
-    count = 0
-    clientsList = []
+    for i in range(constants.header_number_lines):        ## redudante -  como fazer para evitar estar a abrir o ficheiro e a ler
+        inFile.readline()
+
 
     for line in inFile.readlines():
 
         processed_line = line.replace ( "\n" , "" )
 
-        if count >= 7:
-
-            clientList = processed_line.split(",")
-
-            outputList.append(clientList)
-
-        count = count + 1
+        outputList.append(processed_line.split(","))
 
     inFile.close()
 
     return outputList
 
-# test :
-print(readClientsFile("/Users/ClaudiaBelem/PycharmProjects/iCageDoree/tests/example1/2019y01m12clients09h00.txt"))
+# test:
+print(readClientsFile("/Users/ClaudiaBelem/Google Drive (belem@campus.ul.pt)/FCUL - Informática/1º semestre/Fundamentos de programacao/Projeto/iCageDoree/tests/example1/2019y01m12experts09h00.txt"))
