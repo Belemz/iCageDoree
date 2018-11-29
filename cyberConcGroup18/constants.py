@@ -5,3 +5,21 @@
 
 
 header_number_lines = 7
+
+
+
+expertsDictKeyName = "name"
+
+expertsDictKeyLocation = "location"
+
+expertsDictKeySpecialty = "specialty"
+
+expertsDictKeyReview = "review"
+
+expertsDictKeyCost = "cost"
+
+expertsDictKeyService = "last service"
+
+expertsDictKeyAvailability = "availability"
+
+expertsDictKeyMoney = "total money"

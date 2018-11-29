@@ -48,26 +48,55 @@ def readExpertsFile(fileName):
 
     outputList = []
 
-    inFile = open ( fileName , 'r' )
-
     outputList.append(readHeader(fileName))
 
     fileIn = open(fileName, 'r')
 
-    expertsList = []
+
     counter = 0
     for line in fileIn.readlines ():
         if counter >= 7:
-            line.replace ("\n", "")
-            expertsList.append (line.split (","))
+            striped_line = line.strip( "\n")
+
+            processed_line = striped_line.split(",")
+
+            expert = toDictionary(processed_line)
+
+            # print("esta é o cliente:", expert)
+
+            outputList.append (expert)
+
+
         counter += 1
-
-
 
     fileIn.close()
 
-    return (expertsList)
+    return outputList
 
+
+def toDictionary(expertLineList):
+    """ #todo
+    """
+    dictionary = {}
+
+
+    dictionary[constants.expertsDictKeyName] = expertLineList[0]
+
+    dictionary[constants.expertsDictKeyLocation] = expertLineList[1]
+
+    dictionary[constants.expertsDictKeySpecialty] = expertLineList[2]
+
+    dictionary[constants.expertsDictKeyReview] = expertLineList[3]
+
+    dictionary[constants.expertsDictKeyCost] = expertLineList[4]
+
+    dictionary[constants.expertsDictKeyService] = expertLineList[5]
+
+    dictionary[constants.expertsDictKeyAvailability] = expertLineList[6]
+
+    dictionary[constants.expertsDictKeyMoney] = expertLineList[7]
+
+    return dictionary
 
 
 def readClientsFile(fileName):
@@ -84,27 +113,29 @@ def readClientsFile(fileName):
 
     outputList = []
 
-    inFile = open ( fileName , 'r' )
-
     outputList.append(readHeader(fileName))
 
 #    print(outputList)
 
-    inFile = open(fileName, 'r')
+    fileIn = open(fileName, 'r')
 
-    for i in range(constants.header_number_lines):        ## redudante -  como fazer para evitar estar a abrir o ficheiro e a ler
-        inFile.readline()
+    for i in range(constants.header_number_lines):        ## todo redudante -  como fazer para evitar estar a abrir o ficheiro e a ler
+        fileIn.readline()
 
 
-    for line in inFile.readlines():
+    for line in fileIn.readlines():
 
         processed_line = line.replace ( "\n" , "" )
 
         outputList.append(processed_line.split(","))
 
-    inFile.close()
+    fileIn.close()
 
     return outputList
 
 # test:
-print(readClientsFile("/Users/ClaudiaBelem/Google Drive (belem@campus.ul.pt)/FCUL - Informática/1º semestre/Fundamentos de programacao/Projeto/iCageDoree/tests/example1/2019y01m12experts09h00.txt"))
+# print(readClientsFile("./../tests/example1/2019y01m12experts09h00.txt"))
+
+
+# test2:
+print(readExpertsFile("./../tests/example1/2019y01m12experts09h00.txt"))

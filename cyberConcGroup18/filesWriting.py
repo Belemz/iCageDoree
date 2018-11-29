@@ -3,9 +3,10 @@
 # 44605 Cláudia Garcia Belém
 # 31955 Inês de Carvalho Fernandes Martins da Silva
 
-import datetime
+import filesReading
+import constants
 
-def createHeader(fileName, day, time, company, scope):
+def createHeader(fileOut , tuple):
     """
     Creates a header containing the day, time, company and scope of a file.
     Requires: param day: is date in the format yyyy-mm-dd,
@@ -16,45 +17,94 @@ def createHeader(fileName, day, time, company, scope):
      type of parameter
     """
 
+    day, time, company, scope = tuple     # tuple unpacking
+
+    fileOut.write( "Day:\n" )
+    fileOut.write( day )
+    fileOut.write( "\nTime:\n" )
+    fileOut.write( time )
+    fileOut.write( "\nCompany:\n" )
+    fileOut.write( company )
+    fileOut.write( "\n" )
+    fileOut.write( scope )
+    fileOut.write( "\n" )
 
 
-    fileName.write("Day:\n")
-    fileName.write(day)
-    fileName.write("\nTime:\n")
-    fileName.write(time)
-    fileName.write("\nCompany:\n")
-    fileName.write(company)
-    fileName.write("\n")
-    fileName.write(scope)
+
+
+def writeExpertsFile(content):
+    """
+
+    #
+
+    # todo
+    """
+    print(content)
+
+    fileOut = open ( "../debug/ficheiroqualquer.txt" , "w" )
+
+    createHeader(fileOut, content[0])    # todo colocar nas constantes
+
+    for iterator in range (1, len(content)):
+
+        element = content[iterator]        # each element of the list received from content
+
+        # print("este é o elemento:", element)
+
+        elementStr = convertExpertsDictToString(element)    # dictionary values transformed to Str per expert
+
+        print("elemento em String", elementStr)
+
+        fileOut.write(elementStr + "\n")
+
+
+
+    fileOut.close()
 
 
 
 
 
+def convertExpertsDictToString (expertsDict):
+    """
+
+    # todo
+    """
+
+    expertsString =  expertsDict.get(constants.expertsDictKeyName) + "," +\
+                     expertsDict.get(constants.expertsDictKeyLocation) + "," + \
+                     expertsDict.get(constants.expertsDictKeySpecialty) + "," +\
+                     expertsDict.get(constants.expertsDictKeyReview) + "," + \
+                     expertsDict.get(constants.expertsDictKeyCost) + "," + \
+                     expertsDict.get(constants.expertsDictKeyService) + "," + \
+                     expertsDict.get(constants.expertsDictKeyAvailability) + "," + \
+                     expertsDict.get(constants.expertsDictKeyMoney)
+
+    return expertsString
 
 def writeSchedule():
     """
     Write a file with the scheduling
 
 
-    #to complete!
+    #todo contract
 
     """
 
 
-    newFile = open("/Users/ClaudiaBelem/PycharmProjects/iCageDoree/tests/example1/2018y10m22schedule21h00.txt", "w")
+    newFile = open("./../tests/example1/2018y10m22schedule21h00.txt", "w")
 
     # FALTA DEFINIR: DAY, TIME, COMPANY, SCOPE - INCOMPLETE!
 
-    createHeader(newFile, day,time,company,scope)   # Header is created!
+   # createHeader(newFile, day,time,company,scope)   # Header is created!
 
 
 
 
-    newFile.write(date, ",", time, ",", client_name, ",", expert_name)                            #
-    newFile.write ()
+    # newFile.write(date, ",", time, ",", client_name, ",", expert_name)                            #
+    # newFile.write ()
 
-    newFile.close()
+    # newFile.close()
 
     """
     Na calendarização do atendimento dos pedidos de contratação, a seguir ao cabeçalho, cada linha corresponde ao 
@@ -67,4 +117,7 @@ def writeSchedule():
                 2018-10-30, 16:00, Maria Schwartz, Maciej Salawa
     """
 
-print(writeSchedule())
+# print(writeSchedule())
+
+
+# writeExpertsFile()
