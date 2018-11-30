@@ -119,7 +119,7 @@ def readClientsFile(fileName):
 
     fileIn = open(fileName, 'r')
 
-    for i in range(constants.header_number_lines):        ## todo redudante -  como fazer para evitar estar a abrir o ficheiro e a ler
+    for _ in range(constants.header_number_lines):        ## todo redudante -  como fazer para evitar estar a abrir o ficheiro e a ler
         fileIn.readline()
 
 

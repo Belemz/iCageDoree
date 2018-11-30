@@ -1,0 +1,14 @@
+Day:
+2019-02-15
+Time:
+11:00
+Company:
+iCageDoree
+Experts:
+Vladislav Simov, london, (plumbing; doors), 5*, 50, 2019-02-16, 12:00, 3548.0
+Marcelo Finger, london, (wifi; refrigerators), 4*, 85, 2019-02-17, 09:30, 2921.5
+Pedro Ruivo, london, (heating; doors; windows), 2*, 20, 2019-03-12, 10:45, 298.0
+Dan Cristea, paris, (doors; plumbing), 4*, 35, 2019-03-12, 14:40, 2344.0
+Philipe Martins, madrid, (refrigerators; lockers), 5*, 95, 2019-03-12, 15:45, 4901.75
+Ednilson Chuteira, london, (wifi; refrigerators; doors), 5*, 65, 2019-03-16, 11:20, 1835.5
+Maciej Salawa, madrid, (refrigerators; doors; lockers), 2*, 20, 2019-03-16, 16:05, 28106.0

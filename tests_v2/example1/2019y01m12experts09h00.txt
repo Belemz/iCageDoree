@@ -1,0 +1,12 @@
+Day:
+2019-01-12
+Time:
+09:00
+Company:
+iCageDoree
+Experts:
+Dan Tufis, lisbon, (heating; doors; windows), 2*, 20, 2019-03-12, 09:15, 2879.0
+Nelo Martins, lisbon, (lockers), 5*, 100, 2019-03-12, 09:30, 22045.0
+Paulo Borges, london, (wifi; electricity; doors), 3*, 65, 2019-03-12, 09:40, 2204.0
+Lech Walesa, london, (plumbing), 5*, 50, 2019-03-13, 09:45, 3523.0
+Marko Tadjic, lisbon, (refrigerators; doors), 2*, 20, 2019-03-13, 09:50, 2879.0

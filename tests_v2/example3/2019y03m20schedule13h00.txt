@@ -1,0 +1,17 @@
+Day:
+2019-02-20
+Time:
+13:00
+Company:
+iCageDoree
+Schedule:
+2019-02-20, 13:00, Carlos Ramos, declined
+2019-02-20, 13:00, Luigi Lazlo, declined
+2019-03-22, 10:15, Duarte Dimas, Pedro Ruivo
+2019-03-22, 10:30, Giovanni Piatelli, Philipe Martins
+2019-03-22, 16:45, Roberto Cencioni, Philipe Martins
+2019-03-24, 08:00, Frank Weiss, Dan Cristea
+2019-03-24, 13:00, Hans Smessaert, Dan Cristea
+2019-03-25, 10:50, Joana Silva, Marcelo Finger
+2019-03-26, 10:50, Anabela Bastos, Ednilson Chuteira
+2019-03-26, 10:50, Nicoletta Goggi, Maciej Salawa

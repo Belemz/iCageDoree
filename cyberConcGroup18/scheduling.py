@@ -27,11 +27,7 @@ def numberClient(filename):
 
 
 def test (fileNameToRead):
-"""
-
-# todo
-
-"""
+    """# todo"""
 
 
     content = filesReading.readExpertsFile (fileNameToRead)
