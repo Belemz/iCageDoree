@@ -7,36 +7,70 @@
 # Header related constants
 header_number_lines = 7
 
+
+# Lists constants:
+HEADER_INDEX = 0
+
+
+
+
 # Dictionary Keys - Experts
 
-expertsDictKeyName = "name"
+E_KEY_NAME = "name"
 
-expertsDictKeyLocation = "location"
+E_KEY_LOCATION = "location"
 
-expertsDictKeySpecialty = "specialty"
+E_KEY_SPECIALITIES_LIST = "specialty"
 
-expertsDictKeyReview = "review"
+E_KEY_REVIEW = "review"
 
-expertsDictKeyCost = "cost"
+E_KEY_COST = "cost"
 
-expertsDictKeyService = "last service"
+E_KEY_SERVICE = "last service"
 
-expertsDictKeyAvailability = "availability"
+E_KEY_DATE = "date"
 
-expertsDictKeyMoney = "total money"
+E_KEY_TIME = "time"
+
+E_KEY_TOTAL_MONEY = "total money"
+
+
 
 # Dictionary Keys - Clients
 
+C_KEY_NAME = "name"
+
+C_KEY_LOCATION = "location"
+
+C_KEY_DATE = "begin date"
+
+C_KEY_TIME = "begin time"
+
+C_KEY_PAYMENT ="max payment"
+
+C_KEY_REVIEW = "review"
+
+C_KEY_SPECIALITY = "specialty"
+
+C_KEY_PERIOD = "period"
+
+
+
+
+# Dictionary Keys - Schedule
+
+S_KEY_DATE = "begin date"
+S_KEY_TIME = "begin time"
+S_KEY_CLIENT_NAME = "client name"
+S_KEY_EXPERT_NAME = "expert name"
+S_KEY_IS_DECLINED = "is declined"
+
+
+
 # Time related Constants
 
-daysMonthly = 30
-hDaily = 24
-minHourly = 60
-secMin = 60
+MONTHS_PER_YEAR = 12
+DAYS_PER_MONTH = 30
+HOUR_PER_DAY = 24
+MIN_PER_HOUR = 60
 
-hour = int(time[0])
-min = int(time[1])
-
-year = date[0]
-month = date[1]
-day = date[2]

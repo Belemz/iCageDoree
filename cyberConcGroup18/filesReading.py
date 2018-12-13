@@ -3,7 +3,7 @@
 # 44605 Cláudia Garcia Belém
 # 31955 Inês de Carvalho Fernandes Martins da Silva
 
-import constants
+import constants as C
 
 def readHeader(fileName):
     # ... <to complete>
@@ -54,13 +54,13 @@ def readExpertsFile(fileName):
 
 
     counter = 0
-    for line in fileIn.readlines ():
+    for line in fileIn.readlines():   ## todo o professor sugeriu fazer slicing do readlines
         if counter >= 7:
-            striped_line = line.strip( "\n")
+            striped_line = line.strip("\n")
 
             processed_line = striped_line.split(",")
 
-            expert = toDictionary(processed_line)
+            expert = expertToDictionary(processed_line)
 
             # print("esta é o cliente:", expert)
 
@@ -74,28 +74,20 @@ def readExpertsFile(fileName):
     return outputList
 
 
-def toDictionary(expertLineList):
+def expertToDictionary(expertLineList):           # TODO: CONFIRMAR TIPOS QUE SÃO GUARDADOS NO DICIONÁRIO
     """ #todo
     """
+
     dictionary = {}
 
-
-    dictionary[constants.expertsDictKeyName] = expertLineList[0]
-
-    dictionary[constants.expertsDictKeyLocation] = expertLineList[1]
-
-    dictionary[constants.expertsDictKeySpecialty] = expertLineList[2]
-
-    dictionary[constants.expertsDictKeyReview] = expertLineList[3]
-
-    dictionary[constants.expertsDictKeyCost] = expertLineList[4]
-
-    dictionary[constants.expertsDictKeyService] = expertLineList[5]
-
-    dictionary[constants.expertsDictKeyAvailability] = expertLineList[6]
-
-    dictionary[constants.expertsDictKeyMoney] = expertLineList[7]
-
+    dictionary[C.E_KEY_NAME] = expertLineList[0].strip(" ")
+    dictionary[C.E_KEY_LOCATION] = expertLineList[1].strip(" ")
+    dictionary[C.E_KEY_SPECIALITIES_LIST] = expertLineList[2].strip(" ")
+    dictionary[C.E_KEY_REVIEW] = expertLineList[3].strip(" ")
+    dictionary[C.E_KEY_COST] = int(expertLineList[4].strip(" "))
+    dictionary[C.E_KEY_DATE] = expertLineList[5].strip(" ")
+    dictionary[C.E_KEY_TIME] = expertLineList[6].strip(" ")
+    dictionary[C.E_KEY_TOTAL_MONEY] = float(expertLineList[7].strip(" "))
     return dictionary
 
 
@@ -107,9 +99,7 @@ def readClientsFile(fileName):
         Ensures: list whose first element is the name of the client,
                   second element is the
 
-        ## COMPLETEEEE! """
-
-
+        ##TODO COMPLETEEEE! """
 
     outputList = []
 
@@ -119,23 +109,34 @@ def readClientsFile(fileName):
 
     fileIn = open(fileName, 'r')
 
-    for _ in range(constants.header_number_lines):        ## todo redudante -  como fazer para evitar estar a abrir o ficheiro e a ler
+    for _ in range(C.header_number_lines):        ## todo redudante -  como fazer para evitar estar a abrir o ficheiro e a ler
         fileIn.readline()
 
 
     for line in fileIn.readlines():
-
-        processed_line = line.replace ( "\n" , "" )
-
-        outputList.append(processed_line.split(","))
+        striped_line = line.strip ( "\n" )
+        processed_line = striped_line.split ( "," )
+        client = clientsToDictionary(processed_line)
+        outputList.append(client)
 
     fileIn.close()
 
     return outputList
 
-# test:
-# print(readClientsFile("./../tests/example1/2019y01m12experts09h00.txt"))
 
+def clientsToDictionary(clientLineList):   # TODO: CONFIRMAR TIPOS QUE SÃO GUARDADOS NO DICIONÁRIO
+    """ #todo
+    """
 
-# test2:
-print(readExpertsFile("./../tests/example1/2019y01m12experts09h00.txt"))
+    dictionary = {}
+
+    dictionary[C.C_KEY_NAME] = clientLineList[0].strip(" ")
+    dictionary[C.C_KEY_LOCATION] = clientLineList[1].strip(" ")
+    dictionary[C.C_KEY_DATE] = clientLineList[2].strip(" ")
+    dictionary[C.C_KEY_TIME] = clientLineList[3].strip(" ")
+    dictionary[C.C_KEY_PAYMENT] = int(clientLineList[4].strip(" "))
+    dictionary[C.C_KEY_REVIEW] = clientLineList[5].strip(" ")
+    dictionary[C.C_KEY_SPECIALITY] = clientLineList[6].strip(" ")
+    dictionary[C.C_KEY_PERIOD] = clientLineList[7].strip(" ")
+
+    return dictionary
