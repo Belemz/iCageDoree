@@ -4,46 +4,51 @@
 # 2018-2019 Fundamentos de Programação
 # Grupo 18
 # 44605 Cláudia Garcia Belém
-# 31955 Inês de Carvalho Fernandes Martins da Silva
 
+
+# Import project modules
 import constants as C
 import dateTime as DT
-
-def extractExpertsSpecialities(string):
-    """#TODO
-    """
-
-    removal_of_parentheses = string.replace("(","").replace(")","")
-    list_of_speciality = []
-    processed_string = removal_of_parentheses.split(";")
-    for word in processed_string:
-        striped_word = word.strip(" ")
-        list_of_speciality.append(striped_word)
-
-    return list_of_speciality
+import filesReading as FR
 
 
 def expertIsEligible(client, expert):
     """
-    todo finish the contract
-    :param client:
-    :param expert:
-    :return:
+    Receives a client and an expert and verifies is the expert is eligible to perform the requested work by the client.
+        REQUIRES: client and expert dictionaries, containing client and expert sets of key-values, respectively.
+
+        ENSURES: True if an expert is eligible for that work. False if it is not eligible.
     """
 
-    same_specialty = client.get(C.C_KEY_SPECIALITY) in extractExpertsSpecialities(expert.get(C.E_KEY_SPECIALITIES_LIST))
+    # checks if the expert speciality corresponds to the requested by the client.
+    same_speciality = client.get(C.C_KEY_SPECIALITY) in FR.extractExpertsSpecialities(expert.get(C.E_KEY_SPECIALITIES_LIST))
+
+    # checks if the expert has the minimum review rate desired by the client.
     enough_review = client.get(C.C_KEY_REVIEW) <= expert.get(C.E_KEY_REVIEW)
+
+    # checks if the price of the expert is within the value specified by the client.
     cost_is_lower = client.get(C.C_KEY_PAYMENT) >= expert.get(C.E_KEY_COST)
+
+    # checks if the location between the client and the expert match.
     same_location = client.get(C.C_KEY_LOCATION) == expert.get(C.E_KEY_LOCATION)
 
 
-    return (same_specialty and enough_review and cost_is_lower and same_location)
+    return (same_speciality and enough_review and cost_is_lower and same_location)
 
 
 def addExpertTravelTime(expert_date_str, expert_time_str):
-    """todo"""
+    """
+    Add the travel time to the expert availability time.
+        REQUIRES: expert_date_str is str and represents the date at which the expert ends his last request.
+                    expert_time_str is str and represents the time at which the expert ends his last request.
+
+        ENSURES: updated date and time str that correspond to the real availability of the expert, i.e., at which time
+            the expert could start working (with the travel time included).
+    """
 
     # return DT.addPeriodToTime(expert_time_str, 1, 0, ":")  # add 01 hour and 00 minutes
+
+    # addition of 1 hour and 0 minutes to the expert time.
     return DT.updateDateTime(expert_date_str, expert_time_str, 1, 0, ":")
 
 def assignClient(client, expert):
@@ -149,15 +154,18 @@ def updateExpert(expert, client, assigned_schedule):
 
 # TODO VERIFICAR SE É PARA DEIXAR COMO MUTÁVEL OU SE É PARA RETORNAR AS LISTAS?
 
-def initialSorting(clients_list, experts_list):
+#def initialSorting(clients_list, experts_list):
     """TODO"""
-
     clients_list.sort(key=lambda client: (client.get(C.C_KEY_DATE), \
                                           client.get(C.C_KEY_TIME), \
                                           client.get(C.C_KEY_NAME)))
 
+def initialSorting(experts_list):
+
+
     experts_list.sort(key=lambda expert: (expert.get(C.E_KEY_DATE), \
                                           expert.get(C.E_KEY_TIME), \
+                                          expert.get(C.E_KEY_COST), \
                                           expert.get(C.E_KEY_TOTAL_MONEY), \
                                           expert.get(C.E_KEY_NAME)))
 
@@ -194,7 +202,8 @@ def schedule(clients_list, experts_list, current_date, current_time):
 
     schedule_list = []
 
-    initialSorting(clients_list, experts_list)
+    # initialSorting(clients_list, experts_list)
+    initialSorting(experts_list)
 
     number_of_declined_clients = 0
 

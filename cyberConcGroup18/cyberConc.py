@@ -5,8 +5,11 @@
 # Grupo 18
 # 44605 Cláudia Garcia Belém
 
+
+# Import python built-in modules
 import sys
 
+# Import project modules
 import constants as C
 import filesReading as FR
 import filesWriting as FW
@@ -16,17 +19,12 @@ import scheduling as S
 def assign(file_name_experts, file_name_clients):
     """
     Assign given experts given to given clients.
-    Requires: fileNameExperts, fileNameClients are str, with the names
-    of the files representing the list of experts and clients, respectively,
-    following the format indicated in the project.
-    Ensures: Two output files, respectively, with the listing of schedules
-    tasks and the updated listing of experts, following the format
-    and naming convention indicated in the project.
+        REQUIRES: fileNameExperts, fileNameClients are str, with the names of the files representing the
+        list of experts and clients, respectively, following the format indicated in the project.
+
+        ENSURES: Two output files, respectively, with the listing of schedules tasks and the updated
+        listing of experts, following the format and naming convention indicated in the project.
     """
-        #to be completed
-
-
-    # opens the file, removes and update the header from the list(for both clients and experts)
 
     clients_content = FR.readClientsFile(file_name_clients)
     clients_header = clients_content.pop(C.HEADER_INDEX)
