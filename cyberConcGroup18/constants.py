@@ -1,8 +1,9 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
 # 2018-2019 Fundamentos de Programação
 # Grupo 18
 # 44605 Cláudia Garcia Belém
-# 31955 Inês de Carvalho Fernandes Martins da Silva
-
 
 # Header related constants
 header_number_lines = 7
@@ -12,6 +13,15 @@ header_number_lines = 7
 HEADER_INDEX = 0
 
 
+
+# HEADER INDEXES:
+HEADER_DATE_INDEX = 0
+
+HEADER_TIME_INDEX = 1
+
+HEADER_COMPANY_INDEX = 2
+
+HEADER_SCOPE_INDEX = 3
 
 
 # Dictionary Keys - Experts
@@ -72,5 +82,9 @@ S_KEY_IS_DECLINED = "is declined"
 MONTHS_PER_YEAR = 12
 DAYS_PER_MONTH = 30
 HOUR_PER_DAY = 24
-MIN_PER_HOUR = 60
+MINUTES_PER_HOUR = 60
+
+
+WORK_START_HOUR = 8
+WORK_END_HOUR = 20
 

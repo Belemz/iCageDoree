@@ -4,7 +4,6 @@
 # 2018-2019 Fundamentos de Programação
 # Grupo 18
 # 44605 Cláudia Garcia Belém
-# 31955 Inês de Carvalho Fernandes Martins da Silva
 
 import sys
 
@@ -40,7 +39,10 @@ def assign(file_name_experts, file_name_clients):
     new_experts_file_name = FW.createFileName(updated_experts_header)
 
 
-    scheduled_content, updated_experts_content = S.schedule(clients_content, experts_content)
+    current_date = updated_schedule_header[C.HEADER_DATE_INDEX]
+    current_time = updated_schedule_header[C.HEADER_TIME_INDEX]
+
+    scheduled_content, updated_experts_content = S.schedule(clients_content, experts_content, current_date, current_time)
 
     scheduled_content.insert(C.HEADER_INDEX, updated_schedule_header)
     updated_experts_content.insert(C.HEADER_INDEX, updated_experts_header)
@@ -51,8 +53,15 @@ def assign(file_name_experts, file_name_clients):
 
 
 inputFileName1, inputFileName2 = sys.argv[1:]
-assign(inputFileName1, inputFileName2)
-print("terminou assign")
-# assign("./../tests_v2/example1/2019y01m12experts09h00.txt", "./../tests_v2/example1/2019y01m12clients09h00.txt")
+#assign(inputFileName1, inputFileName2)
 
+#inputFileName1 = experts file
+#inputFileName2 = clients file
+
+assign("./../tests_v4/example1/2019y01m12experts09h00.txt", "./../tests_v4/example1/2019y01m12clients09h00.txt")
+print("terminou assign")
+assign("./../tests_v4/example2/2019y02m15experts10h30.txt", "./../tests_v4/example2/2019y02m15clients10h30.txt")
+print("terminou assign")
+assign("./../tests_v4/example3/2019y03m20experts12h30.txt", "./../tests_v4/example3/2019y03m20clients12h30.txt")
+print("terminou assign")
 

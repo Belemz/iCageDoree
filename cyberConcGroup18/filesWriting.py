@@ -1,8 +1,9 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
 # 2018-2019 Fundamentos de Programação
 # Grupo 18
 # 44605 Cláudia Garcia Belém
-# 31955 Inês de Carvalho Fernandes Martins da Silva
-
 
 import constants as C
 import dateTime as DT
@@ -23,7 +24,7 @@ def createFileName(header_tuple):
     file_name = DT.intDateTimeToString(year) + "y" \
                 + DT.intDateTimeToString(month) + "m" \
                 + DT.intDateTimeToString(day) \
-                + processed_scope \
+                + processed_scope.lower() \
                 + DT.intDateTimeToString(hour) + "h" \
                 + DT.intDateTimeToString(min) \
                 + ".txt"
@@ -38,15 +39,9 @@ def updateHeader(headerTuple, scope):
     date, time, company, _ = headerTuple  # tuple unpacking   todo is it better to ignore the scope here and give it as a parameter? Or to make a if else statement to control whether we write experts or schedule
 
     # update time
-    updated_time = DT.addPeriodToTime(time, 0, 30, ":")  # adding 30 minutes to the current time
+    updated_date, updated_time = DT.updateDateTime(date, time, 0, 30, ":")  # adding 30 minutes to the current time
 
 
-    #update date
-    # todo add the conditional that allows you to know how many days to add.- ask if this is required
-
-    # updated_date = DT.addDaysToDate(date, 0)
-    # date_str = DT.dateToString(updated_date)
-    updated_date = date   # todo REMOVER
 
     return (updated_date, updated_time, company, scope)
 
@@ -120,14 +115,13 @@ def writeSchedule(file_name, content):
 
     fileOut = open(directory + file_name, "w")
 
-    writeHeader(fileOut, content[C.HEADER_INDEX])  # todo colocar nas constantes
+    writeHeader(fileOut, content[C.HEADER_INDEX])
 
     for iterator in range(1, len(content)):
         element = content[iterator]  # each element of the list received from content
 
-        # print("este é o elemento:", element)
-
         elementStr = convertScheduleDictToString(element)  # dictionary values transformed to Str per expert
+
 
         fileOut.write(elementStr + "\n")
 

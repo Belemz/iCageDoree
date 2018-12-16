@@ -1,0 +1,14 @@
+Day:
+2019-03-20
+Time:
+12:30
+Company:
+iCageDoree
+Experts:
+Pedro Ruivo, lisbon, (heating; doors; windows), 5*, 75, 2019-03-22, 09:15, 3523.0
+Vladislav Simov, lisbon, (plumbing; doors), 5*, 75, 2019-03-22, 09:15, 3523.0
+Philipe Martins, rome, (refrigerators; lockers), 5*, 95, 2019-03-22, 09:30, 4403.0
+Dan Cristea, berlin, (doors; plumbing), 4*, 35, 2019-03-23, 19:40, 2204.0
+Marcelo Finger, lisbon, (wifi; refrigerators), 4*, 85, 2019-03-25, 09:50, 2879.0
+Ednilson Chuteira, lisbon, (wifi; refrigerators; doors), 5*, 65, 2019-03-26, 09:50, 1803.0
+Maciej Salawa, rome, (refrigerators; doors; lockers), 2*, 20, 2019-03-26, 09:50, 28001.0

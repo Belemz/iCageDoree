@@ -1,7 +1,9 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
 # 2018-2019 Fundamentos de Programação
 # Grupo 18
 # 44605 Cláudia Garcia Belém
-# 31955 Inês de Carvalho Fernandes Martins da Silva
 
 import constants as C
 
@@ -45,33 +47,34 @@ def addPeriodToTime(time, period_in_hours, period_in_minutes, time_delimiter = "
     :param time_delimiter:
     :param period_in_hours:
     """
-
     hour, minute = getTimeFromString(time, time_delimiter)
 
     summed_hours = hour + period_in_hours
-    hour_to_minutes = summed_hours * C.MIN_PER_HOUR
+    hour_to_minutes = summed_hours * C.MINUTES_PER_HOUR
     new_time = hour_to_minutes + minute + period_in_minutes
-    minutes_to_hour = new_time // C.MIN_PER_HOUR
-    minutes = new_time % C.MIN_PER_HOUR
+    minutes_to_hour = new_time // C.MINUTES_PER_HOUR
+    minutes = new_time % C.MINUTES_PER_HOUR
+
+    days_to_add = 0
 
     if minutes_to_hour >= 24:
-        raise ValueError("Essa hora ultrapassa a meia-noite!!")
-        # todo remove this RAISE AND SOLVE THE PROBLEM OF HOURS > 24 h
+        days_to_add = minutes_to_hour//24
+
 
     time_tuple = (minutes_to_hour, minutes)
-    return timeToString(time_tuple)
+    return timeToString(time_tuple), days_to_add
 
 
-
-def addPeriodStringToTime(time, period_string, time_delimiter = ":"):
-    """ # todo: contract
-    :param time_delimiter:
-    :param period_in_hours:
-    """
-    period_in_hours, period_in_minutes = getTimeFromString(period_string, time_delimiter)
-
-    return addPeriodToTime(time, period_in_hours, period_in_minutes, ":")
-
+#
+# def addPeriodStringToTime(time, period_string, time_delimiter = ":"):
+#     """ # todo: contract
+#     :param time_delimiter:
+#     :param period_in_hours:
+#     """
+#     period_in_hours, period_in_minutes = getTimeFromString(period_string, time_delimiter)
+#
+#     return addPeriodToTime(time, period_in_hours, period_in_minutes, ":")
+#
 
 def getDateFromString(date_entry):
     """
@@ -110,13 +113,17 @@ def addDaysToDate(date_string, number_of_days_to_add):    # todo RETHINK
     """
     #todo
     """
-
     year, month, day = getDateFromString(date_string)
 
     accumulated_day = day + number_of_days_to_add
     accumulated_month = month + (accumulated_day // C.DAYS_PER_MONTH)
 
-    if accumulated_day % C.DAYS_PER_MONTH == 0:
+    if number_of_days_to_add == 0:
+        updated_day = day
+        updated_month = month
+        updated_year = year
+
+    elif accumulated_day % C.DAYS_PER_MONTH == 0:
         updated_day = C.DAYS_PER_MONTH
         updated_month = (month % C.DAYS_PER_MONTH) + 1
         accumulated_month = updated_month
@@ -133,6 +140,7 @@ def addDaysToDate(date_string, number_of_days_to_add):    # todo RETHINK
         updated_year = year + (accumulated_month // C.MONTHS_PER_YEAR)
 
     date_tuple = (updated_year, updated_month, updated_day)
+
     return dateToString(date_tuple)
 
 
@@ -149,10 +157,11 @@ def intDateTimeToString (int_value):
 def selectMostRecentDateTime (date1, time1, date2, time2):
     """#TODO"""
     year1, month1, day1 = getDateFromString(date1)
-    hour1, minute1 = getTimeFromString(time1, )
+    hour1, minute1 = getTimeFromString(time1)
+
 
     year2, month2, day2 = getDateFromString(date2)
-    hour2, minute2 = getTimeFromString(time2, )
+    hour2, minute2 = getTimeFromString(time2)
 
 
     if (year1 == year2 and month1 == month2 and day1 == day2):
@@ -200,6 +209,22 @@ def selectMostRecentTime(time1, time2):
     else:
         return time2
 
+
+def updateDateTime(date_str, time_str, period_in_hour, period_in_minute, delimiter = ":"):
+    """
+    #TODO
+    :param date_str:
+    :param time_str:
+    :param period_to_add_str: is str
+    :return:
+    """
+
+    updated_time, number_of_days_to_add = addPeriodToTime(time_str, period_in_hour, period_in_minute, delimiter)
+
+    updated_date = addDaysToDate(date_str, number_of_days_to_add)
+
+
+    return updated_date, updated_time
 
 # def isAfter(one_date, other_date):
 #    """Verifies if a certain date occurs after another date."""

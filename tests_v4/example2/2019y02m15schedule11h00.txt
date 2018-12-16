@@ -1,0 +1,15 @@
+Day:
+2019-02-15
+Time:
+11:00
+Company:
+iCageDoree
+Schedule:
+2019-02-15, 11:00, Pierre Lenard, declined
+2019-02-16, 11:30, Eric Laporte, Vladislav Simov
+2019-02-17, 09:00, Marius Sigorvius, Marcelo Finger
+2019-03-12, 10:15, Girard Lepont, Pedro Ruivo 
+2019-03-12, 10:30, Hans Dietrich, Philipe Martins
+2019-03-12, 10:40, William Smith, Dan Cristea
+2019-03-16, 10:50, Johans Keile, Maciej Salawa
+2019-03-16, 10:50, Martin Samson, Ednilson Chuteira
