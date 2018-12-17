@@ -97,14 +97,14 @@ def timeToString(time_tuple):
 
 def addPeriodToTime(time, period_in_hours, period_in_minutes, time_delimiter = ":"):
     """
-        Adds period_in_hours and period_in_minutes to time.
-            REQUIRES: time is str, represents time in the format "hh:mm".
-                      period_in_hours, is int >= 0
-                      period_in_minutes, is int >= 0
-                      time_delimiter is str and represents the delimiter between hh and mm in time.
+    Adds period_in_hours and period_in_minutes to time.
+        REQUIRES: time is str, represents time in the format "hh:mm".
+                  period_in_hours, is int >= 0
+                  period_in_minutes, is int >= 0
+                  time_delimiter is str and represents the delimiter between hh and mm in time.
 
-            ENSURES: a str with the updated time (with the added periods) in the format "hh:mm"
-                     an int >= 0, days_to_add that represent the number of days to be added to a date.
+        ENSURES: a str with the updated time (with the added periods) in the format "hh:mm"
+            an int >= 0, days_to_add that represent the number of days to be added to a date.
     """
 
     hour, minute = getTimeFromString(time, time_delimiter)
@@ -172,9 +172,9 @@ def addDaysToDate(date_string, number_of_days_to_add):    # todo RETHINK
     return dateToString(date_tuple)
 
 
-def intDateTimeToString (int_value):
+def intDateTimeToString(int_value):
     """
-    Receives an integer value and converts it into string
+    Receives an integer value and converts it into string.
         REQUIRES: int_value > 0 corresponding to a date or a time number.
 
         ENSURES: a st with the given number. If 0 <= int_value <= 9,
@@ -189,7 +189,7 @@ def intDateTimeToString (int_value):
 
 
 
-def selectMostRecentDateTime (date1, time1, date2, time2):
+def selectMostRecentDateTime(date1, time1, date2, time2):
     """
     Compares two date/time pairs and retrieves the most recent pair.
         REQUIRES: two pairs of date-time, date1-time1 and date2-time2.

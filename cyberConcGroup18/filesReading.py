@@ -117,7 +117,7 @@ def extractExpertsSpecialities(speciality_string_tuple):
 
 def readClientsFile(file_name):
     """
-    Converts a given file listing clients into a collection
+    Converts a given file listing clients into a collection.
         REQUIRES: file_name is str, the name of a .txt file listing clients,
     following the format specified in the project.
 

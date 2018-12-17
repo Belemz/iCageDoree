@@ -115,7 +115,7 @@ def writeExpertsFile(file_name, experts_list):
 
 def convertExpertsDictToString(experts_dict):
     """
-    Transforms an expert dictionary into string.
+    Converts an expert dictionary into string.
         REQUIRES: a dictionary of experts, containing all the keys mentioned in the module Constants (Name, Location,
             Specialities_list, review, key_cost, date, time and total_money.
 
@@ -167,7 +167,7 @@ def writeSchedule(file_name, schedule_list):
 
 def convertScheduleDictToString(schedule_dict):
     """
-    Transforms an expert dictionary into string.
+    Converts an expert dictionary into string.
         REQUIRES: a dictionary of schedules, containing all the keys mentioned in the module Constants (begin date, begin
             hour, client_name and expert_name (or "declined", if a client is not assigned with an expert)).
 
