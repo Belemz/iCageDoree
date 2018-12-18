@@ -1,4 +1,4 @@
-    ## TODO - DELETE
+## TODO - DELETE
 import dateTime as DT
 
 #
@@ -9,18 +9,19 @@ import dateTime as DT
 # print(DT.addPeriodToTime(23, 29, 1))
 
 
-
-print(DT.addDaysToDate("2018-11-1", 1))
-
-print(DT.addDaysToDate("2018-11-30", 30))
-
-print(DT.addDaysToDate("2018-11-30", 1))
+# print(DT.addDaysToDate("2018-11-1", 1))
+#
+# print(DT.addDaysToDate("2018-11-30", 30))
+#
+# print(DT.addDaysToDate("2018-11-30", 29))
+#
+# print(DT.addDaysToDate("2018-11-30", 1))
 
 print(DT.addDaysToDate("2018-11-29", 1))
 
-print(DT.addDaysToDate("2018-11-29", 720))
-
-print(DT.addDaysToDate("2018-04-30", 0))
+# print(DT.addDaysToDate("2018-11-29", 722))
+#
+# print(DT.addDaysToDate("2018-04-30", 0))
 
 
 # test schedule writing

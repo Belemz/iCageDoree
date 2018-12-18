@@ -9,6 +9,7 @@
 import constants as C
 
 
+
 def getDateFromString(date_entry):
     """
     Converts a date string into integer variables representing the year, month and day.
@@ -52,7 +53,7 @@ def dateToString(date_tuple):
     return str(year) + "-" + str(month) + "-" + str(day)
 
 
-def getTimeFromString(time_entry, delimiter = ":"):
+def getTimeFromString(time_entry, delimiter=":"):
     """
     Converts a time string into integer variables representing the hours and minutes.
         REQUIRES: time_entry is str, represents a time in the format "hh:mm".
@@ -78,16 +79,16 @@ def timeToString(time_tuple):
        """
 
     hour = (time_tuple[C.HOUR])
-    minute = (time_tuple [C.MINUTE])
+    minute = (time_tuple[C.MINUTE])
 
     if 0 <= hour <= 9 and 0 <= minute <= 9:
-        hour = "0"+ str(hour)
-        minute = "0"+ str(minute)
+        hour = "0" + str(hour)
+        minute = "0" + str(minute)
 
     elif 0 <= hour <= 9:
         hour = "0" + str(hour)
 
-    elif 0 <= minute <=9:
+    elif 0 <= minute <= 9:
         minute = "0" + str(minute)
 
     time_string = str(hour) + ":" + str(minute)
@@ -95,7 +96,7 @@ def timeToString(time_tuple):
     return time_string
 
 
-def addPeriodToTime(time, period_in_hours, period_in_minutes, time_delimiter = ":"):
+def addPeriodToTime(time, period_in_hours, period_in_minutes, time_delimiter=":"):
     """
     Adds period_in_hours and period_in_minutes to time.
         REQUIRES: time is str, represents time in the format "hh:mm".
@@ -108,7 +109,6 @@ def addPeriodToTime(time, period_in_hours, period_in_minutes, time_delimiter = "
     """
 
     hour, minute = getTimeFromString(time, time_delimiter)
-
 
     summed_hours = hour + period_in_hours
     hour_to_minutes = summed_hours * C.MINUTES_PER_HOUR
@@ -129,43 +129,54 @@ def addPeriodToTime(time, period_in_hours, period_in_minutes, time_delimiter = "
     return timeToString(time_tuple), days_to_add
 
 
-
-
-def addDaysToDate(date_string, number_of_days_to_add):    # todo RETHINK
+def addDaysToDate(date_string, number_of_days_to_add):
     """
     Adds a number of days to a date.
         REQUIRES: date_string is a str, representing a date in the format "yyyy-mm-dd"
-                  number_of_days_to_add is int >= 0
+            number_of_days_to_add is int >= 0
 
         ENSURES: a str representing an updated date (as result of the addition of a specified
-         number of days.
-         """
+            number of days.
 
+    >>> addDaysToDate("2018-11-1", 1)
+    '2018-11-02'
+    >>> addDaysToDate("2018-11-30", 30)
+    '2018-12-30'
+    >>> addDaysToDate("2018-11-30", 29)
+    '2018-12-29'
+    >>> addDaysToDate("2018-11-30", 1)
+    '2018-12-01'
+    >>> addDaysToDate("2018-11-29", 1)
+    '2019-11-30'
+    >>> addDaysToDate("2018-11-29", 722)
+    '2020-12-01'
+    >>> addDaysToDate("2018-04-30", 0)
+    '2018-04-30'
+    >>> addDaysToDate("2018-10-30", 60)
+    '2018-12-30'
+    """
     year, month, day = getDateFromString(date_string)
 
-    accumulated_day = day + number_of_days_to_add
-    accumulated_month = month + (accumulated_day // C.DAYS_PER_MONTH)
+    year_in_days = year * C.MONTHS_PER_YEAR * C.DAYS_PER_MONTH
+    month_in_days = month * C.DAYS_PER_MONTH
 
-    if number_of_days_to_add == 0:
-        updated_day = day
-        updated_month = month
-        updated_year = year
+    accumulated_days = day + month_in_days + year_in_days + number_of_days_to_add
 
-    elif accumulated_day % C.DAYS_PER_MONTH == 0:
+    updated_year = accumulated_days // (C.DAYS_PER_MONTH * C.MONTHS_PER_YEAR)
+    updated_month = (accumulated_days % (C.DAYS_PER_MONTH * C.MONTHS_PER_YEAR)) // (C.DAYS_PER_MONTH)
+    updated_day = (accumulated_days % (C.DAYS_PER_MONTH * C.MONTHS_PER_YEAR)) % (C.DAYS_PER_MONTH)
+
+    if updated_day == 0 and updated_month == 0:
         updated_day = C.DAYS_PER_MONTH
-        updated_month = (month % C.DAYS_PER_MONTH) + 1
-        accumulated_month = updated_month
+        updated_month = C.MONTHS_PER_YEAR - 1
     else:
-        updated_day = accumulated_day % C.DAYS_PER_MONTH
-        updated_month = accumulated_month % C.MONTHS_PER_YEAR
-        accumulated_month = updated_month
+        if updated_day == 0:
+            updated_day = C.DAYS_PER_MONTH
+            updated_month = updated_month - 1
 
-
-    if accumulated_month % C.MONTHS_PER_YEAR == 0:
-        updated_month = C.MONTHS_PER_YEAR
-        updated_year = year
-    else:
-        updated_year = year + (accumulated_month // C.MONTHS_PER_YEAR)
+        if updated_month == 0:
+            updated_month = C.MONTHS_PER_YEAR
+            updated_year = updated_year - 1
 
     date_tuple = (updated_year, updated_month, updated_day)
 
@@ -183,10 +194,9 @@ def intDateTimeToString(int_value):
 
     str_value = str(int_value)
     if 0 <= int_value <= 9:
-        str_value = "0"+ str_value
+        str_value = "0" + str_value
 
     return str_value
-
 
 
 def selectMostRecentDateTime(date1, time1, date2, time2):
@@ -199,18 +209,18 @@ def selectMostRecentDateTime(date1, time1, date2, time2):
         ENSURES: the date-time pair, each a str, that represents the most recent date and time.
 
     >>> selectMostRecentDateTime("2018-10-03", "08:00", "2018-10-03", "08:01")
-    ("2018-10-03", "08:01")
+    ('2018-10-03', '08:01')
 
     >>> selectMostRecentDateTime("2018-10-03", "08:00", "2018-10-02", "08:00")
-    ("2018-10-03", "08:00")
+    ('2018-10-03', '08:00')
     """
 
     year1, month1, day1 = getDateFromString(date1)
     year2, month2, day2 = getDateFromString(date2)
 
-
     if (year1 == year2 and month1 == month2 and day1 == day2):
-        return date1, selectMostRecentTime(time1, time2) # since the date is equal, we could also return date2
+        # since the date is equal, we could also return date2
+        return date1, selectMostRecentTime(time1, time2)
 
     elif (year1 > year2):
         return date1, time1
@@ -231,7 +241,6 @@ def selectMostRecentDateTime(date1, time1, date2, time2):
         return date2, time2
 
 
-
 def selectMostRecentTime(time1, time2):
     """
     Compare two times and retrieves the most recent.
@@ -243,9 +252,8 @@ def selectMostRecentTime(time1, time2):
     hour1, minute1 = getTimeFromString(time1)
     hour2, minute2 = getTimeFromString(time2)
 
-
-    if (hour1 == hour2 and  minute1 == minute2):
-        return time1    # since they are equal, it could be time2 too.
+    if (hour1 == hour2 and minute1 == minute2):
+        return time1  # since they are equal, it could be time2 too.
 
     elif (hour1 > hour2):
         return time1
@@ -259,7 +267,7 @@ def selectMostRecentTime(time1, time2):
         return time2
 
 
-def updateDateTime(date_str, time_str, period_in_hour, period_in_minute, delimiter = ":"):
+def updateDateTime(date_str, time_str, period_in_hour, period_in_minute, delimiter=":"):
     """
     Adds period_in_hour and period_in_minutes to time_str and updates the date_str if necessary.
         REQUIRES: date_str, a str representing a date in the format "yyyy-mm-dd"
@@ -275,5 +283,9 @@ def updateDateTime(date_str, time_str, period_in_hour, period_in_minute, delimit
 
     updated_date = addDaysToDate(date_str, number_of_days_to_add)
 
-
     return updated_date, updated_time
+
+
+if __name__ == "__main__":
+    import doctest
+    doctest.testmod()

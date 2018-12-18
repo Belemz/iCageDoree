@@ -105,7 +105,8 @@ def extractExpertsSpecialities(speciality_string_tuple):
         ENSURES: a tuple with str elements, corresponding to the different specialities.
     """
 
-    removal_of_parentheses = speciality_string_tuple.replace("(", "").replace(")", "")
+    removal_of_parentheses = speciality_string_tuple.replace(
+        "(", "").replace(")", "")
     list_of_speciality = []
     processed_string = removal_of_parentheses.split(";")
     for word in processed_string:
@@ -172,4 +173,5 @@ def convertClientToDictionary(client_line_list):
     dictionary[C.C_KEY_PERIOD] = client_line_list[7].strip(" ")
 
     return dictionary
+
 

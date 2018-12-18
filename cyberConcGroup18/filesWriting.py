@@ -9,7 +9,6 @@
 import constants as C
 import dateTime as DT
 
-directory = "../debug/"
 
 def createFileName(header_tuple):
     """
@@ -33,12 +32,12 @@ def createFileName(header_tuple):
     processed_scope = scope.strip(":")
 
     file_name = DT.intDateTimeToString(year) + "y" \
-                + DT.intDateTimeToString(month) + "m" \
-                + DT.intDateTimeToString(day) \
-                + processed_scope.lower() \
-                + DT.intDateTimeToString(hour) + "h" \
-                + DT.intDateTimeToString(minute) \
-                + ".txt"
+        + DT.intDateTimeToString(month) + "m" \
+        + DT.intDateTimeToString(day) \
+        + processed_scope.lower() \
+        + DT.intDateTimeToString(hour) + "h" \
+        + DT.intDateTimeToString(minute) \
+        + ".txt"
 
     return file_name
 
@@ -49,13 +48,15 @@ def updateHeader(header_tuple, scope):
         REQUIRES: a tuple,  header.
         Ensures: a tuple with updated time and date."""
 
-    date, time, company, _ = header_tuple  # tuple unpacking   todo is it better to ignore the scope here and give it as a parameter? Or to make a if else statement to control whether we write experts or schedule
+    # tuple unpacking   todo is it better to ignore the scope here and give it
+    # as a parameter? Or to make a if else statement to control whether we
+    # write experts or schedule
+    date, time, company, _ = header_tuple
 
     # update time - adding 30 minutes to the current time
     updated_date, updated_time = DT.updateDateTime(date, time, 0, 30, ":")
 
     return (updated_date, updated_time, company, scope)
-
 
 
 def writeHeader(file_out, header_tuple):
@@ -83,8 +84,26 @@ def writeHeader(file_out, header_tuple):
     file_out.write("\n")
 
 
+def createDirectory(file_name):
+    """
+    Receives the file name of a file present in the folder where the output files will be
+    saved  and returns the directory of the file.
+        REQUIRES: file_name is str and has the directory.
 
-def writeExpertsFile(file_name, experts_list):
+        ENSURES: a str representing the directory of the input file.
+    """
+
+    split_path = file_name.split("/")
+    split_directory = split_path[:-1]
+
+    directory = ""
+    for element in split_directory:
+        directory = directory + element + "/"
+    return directory
+
+
+
+def writeExpertsFile(file_name, experts_list, directory):
     """
     Creates a file and write the experts in it.
         REQUIRES: file_name, a str that corresponds to the name of the file that will be created.
@@ -100,15 +119,18 @@ def writeExpertsFile(file_name, experts_list):
 
     writeHeader(output_file, experts_list[C.HEADER_INDEX])
 
-
-
     for iterator in range(1, len(experts_list)):
 
         expert = experts_list[iterator]
 
         expert_str = convertExpertsDictToString(expert)
 
-        output_file.write(expert_str + "\n")
+
+        if iterator < len(experts_list) - 1:
+            output_file.write(expert_str + "\n")
+        else:
+            output_file.write(expert_str)
+
 
     output_file.close()
 
@@ -124,20 +146,18 @@ def convertExpertsDictToString(experts_dict):
     """
 
     experts_str = experts_dict.get(C.E_KEY_NAME) + ", " + \
-                    experts_dict.get(C.E_KEY_LOCATION) + ", " + \
-                    experts_dict.get(C.E_KEY_SPECIALITIES_LIST) + ", " + \
-                    experts_dict.get(C.E_KEY_REVIEW) + ", " + \
-                    str(experts_dict.get(C.E_KEY_COST)) + ", " + \
-                    experts_dict.get(C.E_KEY_DATE) + ", " + \
-                    experts_dict.get(C.E_KEY_TIME) + ", " + \
-                    str(experts_dict.get(C.E_KEY_TOTAL_MONEY))
+        experts_dict.get(C.E_KEY_LOCATION) + ", " + \
+        experts_dict.get(C.E_KEY_SPECIALITIES_LIST) + ", " + \
+        experts_dict.get(C.E_KEY_REVIEW) + ", " + \
+        str(experts_dict.get(C.E_KEY_COST)) + ", " + \
+        experts_dict.get(C.E_KEY_DATE) + ", " + \
+        experts_dict.get(C.E_KEY_TIME) + ", " + \
+        str(experts_dict.get(C.E_KEY_TOTAL_MONEY))
 
     return experts_str
 
 
-
-
-def writeSchedule(file_name, schedule_list):
+def writeSchedule(file_name, schedule_list, directory):
     """
     Creates a file and write the schedule for each client in it.
         REQUIRES: file_name, a str that corresponds to the name of the file that will be created.
@@ -159,8 +179,10 @@ def writeSchedule(file_name, schedule_list):
 
         schedule_str = convertScheduleDictToString(schedule)
 
-        fileOut.write(schedule_str + "\n")
-
+        if iterator < len(schedule_list)-1:
+            fileOut.write(schedule_str + "\n")
+        else:
+            fileOut.write(schedule_str)
 
     fileOut.close()
 
@@ -176,8 +198,8 @@ def convertScheduleDictToString(schedule_dict):
         """
 
     schedule_string = schedule_dict.get(C.S_KEY_DATE) + ", " + \
-                      schedule_dict.get(C.S_KEY_TIME) + ", " + \
-                      schedule_dict.get(C.S_KEY_CLIENT_NAME) + ", " +\
-                      schedule_dict.get(C.S_KEY_EXPERT_NAME)
+        schedule_dict.get(C.S_KEY_TIME) + ", " + \
+        schedule_dict.get(C.S_KEY_CLIENT_NAME) + ", " +\
+        schedule_dict.get(C.S_KEY_EXPERT_NAME)
 
     return schedule_string

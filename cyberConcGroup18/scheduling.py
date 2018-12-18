@@ -25,18 +25,19 @@ def schedule(clients_list, experts_list, current_date, current_time):
 
     schedule_list = []
 
-    # clientSorting(clients_list) # if we wanted to sort the clients by the date and time of the requests.
+    # clientSorting(clients_list) # if we wanted to sort the clients by the
+    # date and time of the requests.
     expertSorting(experts_list)
 
     number_of_declined_clients = 0
-
 
     for client in clients_list:
 
         has_been_assigned = False
         index = 0
 
-        while (index < len(experts_list) and not has_been_assigned): #todo confirmar negação do has_been_assigned
+        while (index < len(experts_list)
+               and not has_been_assigned):  # todo confirmar negação do has_been_assigned
 
             expert = experts_list[index]
 
@@ -47,23 +48,25 @@ def schedule(clients_list, experts_list, current_date, current_time):
             else:
                 index += 1
 
-
-
         if has_been_assigned:
             assigned_expert = experts_list.pop(index)
-            updated_expert = updateExpert(assigned_expert, client, scheduled_line)
+            updated_expert = updateExpert(
+                assigned_expert, client, scheduled_line)
             experts_list.append(updated_expert)
 
             expertSorting(experts_list)
 
         else:
-            scheduled_line = declineClient(client.get(C.C_KEY_NAME), current_date, current_time)
+            scheduled_line = declineClient(
+                client.get(
+                    C.C_KEY_NAME),
+                current_date,
+                current_time)
             number_of_declined_clients += 1
 
         schedule_list.append(scheduled_line)
 
     finalSorting(schedule_list, experts_list, number_of_declined_clients)
-
 
     return schedule_list, experts_list
 
@@ -87,13 +90,11 @@ def expertSorting(experts_list):
         ENSURES: the list sorted by the expert date, time, cost, total money and name, in an ascending way.
     """
 
-    experts_list.sort(key=lambda expert: (expert.get(C.E_KEY_DATE), \
-                                          expert.get(C.E_KEY_TIME), \
-                                          expert.get(C.E_KEY_COST), \
-                                          expert.get(C.E_KEY_TOTAL_MONEY), \
+    experts_list.sort(key=lambda expert: (expert.get(C.E_KEY_DATE),
+                                          expert.get(C.E_KEY_TIME),
+                                          expert.get(C.E_KEY_COST),
+                                          expert.get(C.E_KEY_TOTAL_MONEY),
                                           expert.get(C.E_KEY_NAME)))
-
-
 
 
 def expertIsEligible(client, expert):
@@ -104,20 +105,26 @@ def expertIsEligible(client, expert):
         ENSURES: True if an expert is eligible for that work. False if it is not eligible.
     """
 
-    # checks if the expert speciality corresponds to the requested by the client.
-    same_speciality = client.get(C.C_KEY_SPECIALITY) in FR.extractExpertsSpecialities(expert.get(C.E_KEY_SPECIALITIES_LIST))
+    # checks if the expert speciality corresponds to the requested by the
+    # client.
+    same_speciality = client.get(
+        C.C_KEY_SPECIALITY) in FR.extractExpertsSpecialities(
+        expert.get(
+            C.E_KEY_SPECIALITIES_LIST))
 
     # checks if the expert has the minimum review rate desired by the client.
     enough_review = client.get(C.C_KEY_REVIEW) <= expert.get(C.E_KEY_REVIEW)
 
-    # checks if the price of the expert is within the value specified by the client.
+    # checks if the price of the expert is within the value specified by the
+    # client.
     cost_is_lower = client.get(C.C_KEY_PAYMENT) >= expert.get(C.E_KEY_COST)
 
     # checks if the location between the client and the expert match.
-    same_location = client.get(C.C_KEY_LOCATION) == expert.get(C.E_KEY_LOCATION)
+    same_location = client.get(
+        C.C_KEY_LOCATION) == expert.get(
+        C.E_KEY_LOCATION)
 
     return (same_speciality and enough_review and cost_is_lower and same_location)
-
 
 
 def assignClient(client, expert):
@@ -134,21 +141,22 @@ def assignClient(client, expert):
     client_date = client.get(C.C_KEY_DATE)
     client_time = client.get(C.C_KEY_TIME)
 
-    expert[C.E_KEY_DATE], expert[C.E_KEY_TIME] = addExpertTravelTime(expert.get(C.E_KEY_DATE), expert.get(C.E_KEY_TIME))
+    expert[C.E_KEY_DATE], expert[C.E_KEY_TIME] = addExpertTravelTime(
+        expert.get(C.E_KEY_DATE), expert.get(C.E_KEY_TIME))
 
     predicted_start_hour, _ = DT.getTimeFromString(expert[C.E_KEY_TIME], ":")
 
     if predicted_start_hour >= C.WORK_END_HOUR or predicted_start_hour < C.WORK_START_HOUR:
 
         expert[C.E_KEY_TIME] = DT.intDateTimeToString(C.WORK_START_HOUR) \
-                               + ":" \
-                               + DT.intDateTimeToString(0)
+            + ":" \
+            + DT.intDateTimeToString(0)
 
         expert[C.E_KEY_DATE] = DT.addDaysToDate(expert.get(C.E_KEY_DATE), 1)
 
-    start_date, start_time = DT.selectMostRecentDateTime(client_date, \
-                                                         client_time, \
-                                                         expert[C.E_KEY_DATE], \
+    start_date, start_time = DT.selectMostRecentDateTime(client_date,
+                                                         client_time,
+                                                         expert[C.E_KEY_DATE],
                                                          expert[C.E_KEY_TIME])
 
     schedule_dict[C.S_KEY_DATE] = start_date
@@ -164,7 +172,6 @@ def assignClient(client, expert):
     return schedule_dict
 
 
-
 def addExpertTravelTime(expert_date_str, expert_time_str):
     """
     Add the 1h travel time to the expert availability time.
@@ -177,7 +184,6 @@ def addExpertTravelTime(expert_date_str, expert_time_str):
 
     # addition of 1 hour and 0 minutes to the expert time.
     return DT.updateDateTime(expert_date_str, expert_time_str, 1, 0, ":")
-
 
 
 def declineClient(client_name, current_date, current_time):
@@ -206,7 +212,6 @@ def declineClient(client_name, current_date, current_time):
     return schedule_dict
 
 
-
 def updateExpert(expert, client, assigned_schedule):
     """
     Updates the expert date and time of last request and the total_money gathered.
@@ -226,43 +231,46 @@ def updateExpert(expert, client, assigned_schedule):
 
     hours_to_add, minutes_to_add = DT.getTimeFromString(hiring_period, "h")
 
-   # verifies if the working period respects the interval established in the project and makes the necessary alterations
-    predicted_end_date, predicted_end_time = DT.updateDateTime(predicted_start_date, \
-                                                               predicted_start_time, \
-                                                               hours_to_add, \
-                                                               minutes_to_add)
+   # verifies if the working period respects the interval established in the
+   # project and makes the necessary alterations
+    predicted_end_date, predicted_end_time = DT.updateDateTime(
+        predicted_start_date, predicted_start_time, hours_to_add, minutes_to_add)
 
-    predicted_end_hour, predicted_end_minutes = DT.getTimeFromString(predicted_end_time)
+    predicted_end_hour, predicted_end_minutes = DT.getTimeFromString(
+        predicted_end_time)
 
     if (predicted_end_hour == C.WORK_END_HOUR and predicted_end_minutes != 0) \
             or (predicted_end_hour > C.WORK_END_HOUR) \
             or (predicted_end_hour < C.WORK_START_HOUR):
 
-
-        expert[C.E_KEY_DATE] = DT.addDaysToDate(predicted_end_date, 1) #adds one day to the request date.
+        # adds one day to the request date.
+        expert[C.E_KEY_DATE] = DT.addDaysToDate(predicted_end_date, 1)
 
         hours_to_add = predicted_end_hour - C.WORK_END_HOUR
 
         end_hour = C.WORK_START_HOUR + hours_to_add
 
-        expert[C.E_KEY_TIME] = DT.intDateTimeToString(end_hour) + ":" + DT.intDateTimeToString(predicted_end_minutes)
-
+        expert[C.E_KEY_TIME] = DT.intDateTimeToString(
+            end_hour) + ":" + DT.intDateTimeToString(predicted_end_minutes)
 
     else:
         expert[C.E_KEY_DATE] = predicted_end_date
         expert[C.E_KEY_TIME] = predicted_end_time
 
-
     # calculates the total money after carrying on the service.
-    accumulated_money = calculateExpertTotalMoney(expert.get(C.E_KEY_TOTAL_MONEY), \
-                                                            expert.get(C.E_KEY_COST), \
-                                                            hiring_period)
+    accumulated_money = calculateExpertTotalMoney(
+        expert.get(
+            C.E_KEY_TOTAL_MONEY), expert.get(
+            C.E_KEY_COST), hiring_period)
     expert[C.E_KEY_TOTAL_MONEY] = accumulated_money
 
     return expert
 
 
-def calculateExpertTotalMoney(expert_initial_money, expert_cost_per_hour, time_worked):
+def calculateExpertTotalMoney(
+        expert_initial_money,
+        expert_cost_per_hour,
+        time_worked):
     """
     Calculates the expert total money after completing a service / fulfilling a client request.
         REQUIRES: expert_initial_money is str
@@ -276,9 +284,11 @@ def calculateExpertTotalMoney(expert_initial_money, expert_cost_per_hour, time_w
     expert_cost = int(expert_cost_per_hour)
     number_of_hours, number_of_minutes = DT.getTimeFromString(time_worked, "h")
 
-    total_number_of_hours_worked = int(number_of_hours) + float(number_of_minutes / C.MINUTES_PER_HOUR)
+    total_number_of_hours_worked = int(
+        number_of_hours) + float(number_of_minutes / C.MINUTES_PER_HOUR)
 
-    total_money_gathered = initial_money + (expert_cost * total_number_of_hours_worked)
+    total_money_gathered = initial_money + \
+        (expert_cost * total_number_of_hours_worked)
 
     return str(total_money_gathered)
 
@@ -298,14 +308,20 @@ def finalSorting(schedule_list, experts_list, number_of_declined_clients):
             before.
     """
 
-
-    schedule_list.sort(key=lambda schedule: (schedule.get(C.S_KEY_DATE),\
-                                             schedule.get(C.S_KEY_TIME),\
-                                             schedule.get(C.S_KEY_CLIENT_NAME)))
+    schedule_list.sort(
+        key=lambda schedule: (
+            schedule.get(
+                C.S_KEY_DATE), schedule.get(
+                C.S_KEY_TIME), schedule.get(
+                    C.S_KEY_CLIENT_NAME)))
 
     experts_list.sort(key=lambda expert: (expert.get(C.E_KEY_DATE),
                                           expert.get(C.E_KEY_TIME),
                                           expert.get(C.E_KEY_NAME)))
 
     if number_of_declined_clients >= 2:
-        schedule_list.sort(key=lambda schedule: (schedule.get(C.S_KEY_IS_DECLINED)), reverse = True)
+        schedule_list.sort(
+            key=lambda schedule: (
+                schedule.get(
+                    C.S_KEY_IS_DECLINED)),
+            reverse=True)

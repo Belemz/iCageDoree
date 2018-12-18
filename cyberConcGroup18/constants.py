@@ -18,7 +18,8 @@ CLIENT_START_LINE = 7
 
 
 # Lists constants:
-# Position of the header in a list containing the experts, clients or schedules.
+# Position of the header in a list containing the experts, clients or
+# schedules.
 HEADER_INDEX = 0
 
 
@@ -34,7 +35,6 @@ HEADER_COMPANY_INDEX = 2
 
 # Index of the header scope in the header tuple.
 HEADER_SCOPE_INDEX = 3
-
 
 
 # Time related Constants:
@@ -105,7 +105,6 @@ E_KEY_TIME = "time"
 E_KEY_TOTAL_MONEY = "total money"
 
 
-
 # Dictionary Keys - Clients
 
 # Key for the client name
@@ -121,9 +120,10 @@ C_KEY_DATE = "date"
 C_KEY_TIME = "time"
 
 # Key for how much the client wants to pay an expert.
-C_KEY_PAYMENT ="max payment"
+C_KEY_PAYMENT = "max payment"
 
-# Key for the minimum review rate an expert must have to be hired by the client.
+# Key for the minimum review rate an expert must have to be hired by the
+# client.
 C_KEY_REVIEW = "review"
 
 # Key for the specialty desired by the client.
@@ -131,7 +131,6 @@ C_KEY_SPECIALITY = "specialty"
 
 # Key for how long a client wants to hire an expert.
 C_KEY_PERIOD = "period"
-
 
 
 # Dictionary Keys - Schedule
